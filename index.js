@@ -1,4 +1,5 @@
 require('dotenv').config()
+var roller = require('./dice/diceroller')
 
 const Discord = require('discord.js')
 const bot = new Discord.Client()
@@ -32,7 +33,7 @@ function processCommand(receivedMessage) {
   console.log("Arguments: " + arguments) // There may not be any arguments
 
   if (primaryCommand == "roll") {
-    rollCommand(arguments, receivedMessage)
+    roller.roll(arguments, receivedMessage)
   } else if (primaryCommand == "newcharacter") {
     addCharacterCommand(arguments, receivedMessage)
   } else {
@@ -68,11 +69,7 @@ function rollCommand(arguments, receivedMessage) {
       if (characters[i].name === arguments[0] && characters[i].owner === receivedMessage.author) {
         receivedMessage.channel.send("Found :" + characters[i].name)
       }
-  }
+    }
   }
   
-}
-
-function rollDiceCommand() {
-  return Math.floor((Math.random() * 6) + 1)
 }
